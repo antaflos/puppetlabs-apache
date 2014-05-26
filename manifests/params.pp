@@ -112,10 +112,6 @@ class apache::params inherits ::apache::version {
     $default_ssl_cert    = '/etc/ssl/certs/ssl-cert-snakeoil.pem'
     $default_ssl_key     = '/etc/ssl/private/ssl-cert-snakeoil.key'
     $ssl_certs_dir       = '/etc/ssl/certs'
-    $passenger_conf_file = 'passenger_extra.conf'
-    $passenger_conf_package_file = 'passenger.conf'
-    $passenger_root      = undef
-    $passenger_ruby      = undef
     $suphp_addhandler    = 'x-httpd-php'
     $suphp_engine        = 'off'
     $suphp_configpath    = '/etc/php5/apache2'
@@ -146,6 +142,53 @@ class apache::params inherits ::apache::version {
     $fastcgi_lib_path       = '/var/lib/apache2/fastcgi'
     $mime_support_package = 'mime-support'
     $mime_types_config    = '/etc/mime.types'
+
+    #
+    # Passenger-specific settings
+    #
+
+    $passenger_conf_file         = 'passenger.conf'
+    $passenger_conf_package_file = undef
+
+    case $::operatingsystem {
+      'Ubuntu': {
+        case $::lsbdistrelease {
+          '12.04': {
+            $passenger_root         = '/usr'
+            $passenger_ruby         = '/usr/bin/ruby'
+            $passenger_default_ruby = undef
+          }
+          '14.04': {
+            $passenger_root         = '/usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini'
+            $passenger_ruby         = undef
+            $passenger_default_ruby = '/usr/bin/ruby'
+          }
+          default: {
+            # The following settings may or may not work on Ubuntu releases not
+            # supported by this module.
+            $passenger_root         = '/usr'
+            $passenger_ruby         = '/usr/bin/ruby'
+            $passenger_default_ruby = undef
+          }
+        }
+      }
+      'Debian': {
+        case $::lsbdistcodename {
+          'wheezy': {
+            $passenger_root         = '/usr'
+            $passenger_ruby         = '/usr/bin/ruby'
+            $passenger_default_ruby = undef
+          }
+          default: {
+            # The following settings may or may not work on Debian releases not
+            # supported by this module.
+            $passenger_root         = '/usr'
+            $passenger_ruby         = '/usr/bin/ruby'
+            $passenger_default_ruby = undef
+          }
+        }
+      }
+    }
   } elsif $::osfamily == 'FreeBSD' {
     $user             = 'www'
     $group            = 'www'

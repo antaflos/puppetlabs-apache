@@ -9,6 +9,7 @@ class apache::mod::passenger (
   $rails_autodetect               = undef,
   $passenger_root                 = $::apache::params::passenger_root,
   $passenger_ruby                 = $::apache::params::passenger_ruby,
+  $passenger_default_ruby         = $::apache::params::passenger_default_ruby,
   $passenger_max_pool_size        = undef,
   $passenger_use_global_queue     = undef,
   $mod_package                    = undef,
@@ -52,6 +53,7 @@ class apache::mod::passenger (
   # Template uses:
   # - $passenger_root
   # - $passenger_ruby
+  # - $passenger_default_ruby
   # - $passenger_max_pool_size
   # - $passenger_high_performance
   # - $passenger_max_requests
