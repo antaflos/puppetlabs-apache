@@ -53,6 +53,7 @@ class apache::params inherits ::apache::version {
     $passenger_conf_package_file = 'passenger.conf'
     $passenger_root       = undef
     $passenger_ruby       = undef
+    $passenger_default_ruby = undef
     $suphp_addhandler     = 'php5-script'
     $suphp_engine         = 'off'
     $suphp_configpath     = undef
@@ -216,6 +217,7 @@ class apache::params inherits ::apache::version {
     $passenger_conf_package_file = undef
     $passenger_root   = '/usr/local/lib/ruby/gems/1.9/gems/passenger-4.0.10'
     $passenger_ruby   = '/usr/bin/ruby'
+    $passenger_default_ruby = undef
     $suphp_addhandler = 'php5-script'
     $suphp_engine     = 'off'
     $suphp_configpath = undef
